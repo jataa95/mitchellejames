@@ -1,25 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #17110c;
-  --color-clay: #2a1d14;
-  --color-cream: #f6eee2;
-  --color-sand: #e9dcc7;
-  --color-ochre: #e08a1e;
+  --color-ink: #151515;
+  --color-paper: #ffffff;
+  --color-mute: #8a8a8a;
   --color-gold: #f2b632;
-  --color-ember: #c4421a;
-  --color-rose: #e48ab0;
-  --color-leaf: #2f8f5b;
-  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
-html {
-  scroll-behavior: smooth;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 body {
-  background: var(--color-cream);
+  background: var(--color-paper);
   color: var(--color-ink);
 }
 
@@ -28,42 +18,43 @@ body {
   color: var(--color-ink);
 }
 
-/* Woven strip used as a section divider — a nod to aso-oke / kente stripes. */
-.weave {
-  height: 10px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--color-ember) 0 18px,
-    var(--color-gold) 18px 30px,
-    var(--color-leaf) 30px 44px,
-    var(--color-ink) 44px 50px,
-    var(--color-rose) 50px 62px,
-    var(--color-ochre) 62px 80px
-  );
+/* Big tight grotesk headings, as in the reference */
+.display {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+}
+.caps {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
-.grain {
-  position: relative;
+/* Floating tiles on the home canvas */
+@keyframes drift {
+  0%, 100% { translate: 0 0; }
+  50% { translate: var(--dx, 0px) var(--dy, -14px); }
 }
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.08;
-  background-image: radial-gradient(rgba(0, 0, 0, 0.6) 1px, transparent 1px);
-  background-size: 3px 3px;
+.tile {
+  animation: drift var(--dur, 9s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes tile-in {
+  from { opacity: 0; scale: 0.92; }
+  to { opacity: 1; scale: 1; }
+}
+.tile-in {
+  animation: tile-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-@keyframes rise {
-  from { opacity: 0; transform: translateY(18px); }
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: none; }
 }
-.rise { animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-.rise-2 { animation-delay: 0.15s; }
-.rise-3 { animation-delay: 0.3s; }
+.fade-up { animation: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .rise { animation: none; }
+  .tile, .tile-in, .fade-up { animation: none; }
 }
