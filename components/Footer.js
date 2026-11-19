@@ -3,7 +3,7 @@ import { artist, contactHref } from "@/data/site";
 
 export default function Footer() {
   return (
-    <footer className="bg-ink text-white">
+    <footer className="border-t border-white/10 bg-ink text-white">
       <div className="flex min-h-[90svh] flex-col px-5 pb-6 pt-24">
         <div className="flex flex-1 flex-col items-center justify-center text-center">
           <h2 className="display text-[15vw] md:text-[11vw]">Mitchelle James</h2>

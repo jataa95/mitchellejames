@@ -44,7 +44,7 @@ export default function HomeCanvas() {
   }, []);
 
   return (
-    <main ref={ref} className="relative h-[100svh] overflow-hidden bg-paper">
+    <section ref={ref} className="relative h-[100svh] overflow-hidden bg-paper">
       {tiles.map((t, i) => (
         <div
           key={t.src}
@@ -102,6 +102,6 @@ export default function HomeCanvas() {
       >
         @{artist.handle}
       </a>
-    </main>
+    </section>
   );
 }

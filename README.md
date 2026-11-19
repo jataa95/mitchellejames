@@ -11,7 +11,8 @@ npm run build
 
 ## Pages
 
-- `/` — home: the name with artwork tiles floating around it
+- `/` — home: hero (the name with artwork tiles floating around it), About, Featured works,
+  How we work (steps in `data/process.js`) and the footer
 - `/work` — all paintings; `/work/[slug]` — one page per painting
 - `/info` — about, press and the "keep the gold at home" theme
 
