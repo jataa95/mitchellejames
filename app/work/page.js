@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
+import SplitText from "@/components/SplitText";
 import { works } from "@/data/works";
 
 export const metadata = { title: "Work" };
@@ -9,16 +11,16 @@ export default function WorkIndex() {
   return (
     <>
       <main className="px-5 pb-24 pt-32">
-        <h1 className="display fade-up text-[18vw] md:text-[12vw]">Work</h1>
-        <p className="caps mt-6 max-w-xl text-xl">
+        <SplitText as="h1" text="Work" immediate stagger={60} className="display block text-[18vw] md:text-[12vw]" />
+        <p className="caps fade-up mt-6 max-w-xl text-xl" style={{ animationDelay: "0.4s" }}>
           Paintings about the wealth beneath our feet, the talent we grow at home, and the hands
           that remember.
         </p>
 
         <ul className="mt-20 grid gap-x-5 gap-y-16 md:grid-cols-2">
-          {works.map((w) => (
-            <li key={w.slug}>
-              <Link href={`/work/${w.slug}`} className="group block">
+          {works.map((w, i) => (
+            <Reveal as="li" key={w.slug} delay={(i % 2) * 150}>
+              <Link href={`/work/${w.slug}`} data-cursor="View" className="group block">
                 <div className="flex aspect-[4/5] items-center justify-center overflow-hidden bg-neutral-100 p-8 md:p-14">
                   <Image
                     src={w.image.src}
@@ -34,7 +36,7 @@ export default function WorkIndex() {
                   <span className="text-mute">Index No. {w.index}</span>
                 </div>
               </Link>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </main>

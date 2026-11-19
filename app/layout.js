@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
+import Cursor from "@/components/Cursor";
 import { artist } from "@/data/site";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -19,7 +20,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.variable}>
       <body className="font-sans antialiased">
+        <div className="scroll-progress fixed inset-x-0 top-0 z-[55] h-[3px] bg-gold" aria-hidden />
         <SiteHeader />
+        <Cursor />
         {children}
       </body>
     </html>

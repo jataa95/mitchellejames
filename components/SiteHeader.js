@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { artist, contactHref } from "@/data/site";
+import { artist } from "@/data/site";
 
 const links = [
   { label: "Info", href: "/info" },
   { label: "Work", href: "/work" },
-  { label: "Contact", href: contactHref(), external: true },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export default function SiteHeader() {

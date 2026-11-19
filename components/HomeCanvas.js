@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { artist } from "@/data/site";
+import SplitText from "./SplitText";
 
 // Each tile: image, which work it links to, position (% of the screen),
 // width (vw, with a minimum for small screens) and parallax depth.
@@ -68,8 +69,9 @@ export default function HomeCanvas() {
           >
             <Link
               href={`/work/${t.work}`}
+              data-cursor="View"
               className="tile-in block transition-transform duration-500 hover:scale-[1.04]"
-              style={{ animationDelay: `${0.1 + i * 0.06}s` }}
+              style={{ animationDelay: `${0.8 + i * 0.07}s` }}
             >
               <Image
                 src={t.src}
@@ -85,12 +87,12 @@ export default function HomeCanvas() {
         </div>
       ))}
 
-      <h1 className="display fade-up pointer-events-none absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 text-center text-[17vw] text-white mix-blend-difference md:text-[8vw]">
-        Mitchelle
-        <br className="md:hidden" /> James
+      <h1 className="display pointer-events-none absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 text-center text-[17vw] text-white mix-blend-difference md:text-[8vw]">
+        <SplitText text={"Mitchelle\nJames"} immediate delay={200} stagger={45} className="block md:hidden" />
+        <SplitText text="Mitchelle James" immediate delay={200} stagger={40} className="hidden md:block" />
       </h1>
 
-      <p className="caps pointer-events-none absolute inset-x-0 bottom-12 z-10 mx-auto max-w-xs px-5 text-center text-[17px] text-white mix-blend-difference sm:max-w-xl sm:text-xl">
+      <p className="caps fade-up pointer-events-none absolute inset-x-0 bottom-12 z-10 mx-auto max-w-xs px-5 text-center text-[17px] text-white mix-blend-difference sm:max-w-xl sm:text-xl">
         {artist.role} — {artist.tagline}
       </p>
 

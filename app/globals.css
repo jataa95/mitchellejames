@@ -61,14 +61,68 @@ body {
 
 /* Scroll reveal */
 .reveal {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    clip-path 1.2s cubic-bezier(0.7, 0, 0.2, 1);
 }
-.reveal.is-shown {
-  opacity: 1;
-  transform: none;
+.reveal-up { opacity: 0; transform: translateY(40px); }
+.reveal-fade { opacity: 0; }
+.reveal-clip { clip-path: inset(100% 0 0 0); }
+.reveal-clip > * { transform: scale(1.15); transition: transform 1.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.reveal.is-shown { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
+.reveal-clip.is-shown > * { transform: none; }
+
+/* Letter-by-letter headings */
+.split-mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.06em; margin-bottom: -0.06em; }
+.split-char { display: inline-block; transform: translateY(105%); transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.split.is-shown .split-char { transform: none; }
+
+/* Marquee */
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee { animation: marquee 40s linear infinite; }
+.marquee-reverse { animation-direction: reverse; }
+
+/* Page transition + small pops */
+@keyframes page-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.page-in { animation: page-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@keyframes pop-in { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: none; } }
+.pop-in { animation: pop-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+/* Growing rule lines */
+.rule { position: relative; }
+.rule::before {
+  content: ""; position: absolute; left: 0; top: 0; height: 1px; width: 100%;
+  background: currentColor; opacity: 0.2; transform: scaleX(0); transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.7, 0, 0.2, 1);
 }
+.is-shown.rule::before, .is-shown .rule::before { transform: scaleX(1); }
+
+/* Scroll progress bar (scroll-driven animation, where supported) */
+@keyframes grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.scroll-progress { transform: scaleX(0); transform-origin: left; }
+@supports (animation-timeline: scroll()) {
+  .scroll-progress { animation: grow-x linear both; animation-timeline: scroll(root); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .reveal, .reveal-clip > * { opacity: 1; transform: none; clip-path: none; transition: none; }
+  .split-char { transform: none; transition: none; }
+  .marquee, .page-in, .pop-in { animation: none; }
+  .rule::before { transform: none; }
 }
+
+/* Underline that slides in on hover */
+.link-slide {
+  background: linear-gradient(currentColor, currentColor) left bottom / 100% 1px no-repeat;
+  padding-bottom: 2px;
+  transition: background-size 0.4s cubic-bezier(0.7, 0, 0.2, 1);
+}
+.link-slide:hover,
+.group:hover .link-slide {
+  background-size: 0% 1px;
+  background-position: right bottom;
+}
+
+/* Slow settle on painting-page hero images */
+@keyframes hero-zoom { from { transform: scale(1.12); } to { transform: scale(1); } }
+.hero-zoom { animation: hero-zoom 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@media (prefers-reduced-motion: reduce) { .hero-zoom { animation: none; } }

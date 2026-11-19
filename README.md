@@ -26,3 +26,17 @@ npm run build
 
 To add a painting, drop the image in `public/works/` and add an entry to `data/works.js`
 with its pixel `width` and `height`.
+
+## Contact form
+
+The form on the home page (`/#contact`) emails enquiries through [Resend](https://resend.com).
+Add these environment variables in Vercel (Project → Settings → Environment Variables), then redeploy:
+
+| Variable | Value |
+| --- | --- |
+| `RESEND_API_KEY` | API key from resend.com |
+| `CONTACT_TO_EMAIL` | the inbox enquiries should go to |
+| `CONTACT_FROM_EMAIL` | optional — e.g. `Website <hello@yourdomain.com>` once your domain is verified in Resend |
+
+Until they are set, the form validates input but tells visitors to message on Instagram instead.
+Replies go straight to the visitor (their email is set as reply-to).

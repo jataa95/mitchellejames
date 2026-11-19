@@ -1,32 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import useInView from "./useInView";
 
-// Fades and lifts its children into view the first time they scroll on screen.
-export default function Reveal({ children, delay = 0, className = "", as: Tag = "div" }) {
-  const ref = useRef(null);
-  const [shown, setShown] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShown(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "0px 0px -10% 0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
+// Animates children in the first time they scroll on screen.
+// variant: "up" (fade + lift, default) | "clip" (wipe up, for images) | "fade"
+export default function Reveal({ children, delay = 0, className = "", variant = "up", as: Tag = "div" }) {
+  const [ref, shown] = useInView();
   return (
     <Tag
       ref={ref}
-      className={`reveal ${shown ? "is-shown" : ""} ${className}`}
+      className={`reveal reveal-${variant} ${shown ? "is-shown" : ""} ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}

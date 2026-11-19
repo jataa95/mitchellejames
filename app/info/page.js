@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
+import SplitText from "@/components/SplitText";
 import { artist, press } from "@/data/site";
 
 export const metadata = { title: "Info" };
@@ -8,7 +10,7 @@ export default function Info() {
   return (
     <>
       <main className="px-5 pb-24 pt-32">
-        <h1 className="display fade-up text-[18vw] md:text-[12vw]">Info</h1>
+        <SplitText as="h1" text="Info" immediate stagger={60} className="display block text-[18vw] md:text-[12vw]" />
 
         <section className="mt-16 grid gap-10 md:grid-cols-[1fr_1.3fr] md:gap-16">
           <Image
@@ -72,7 +74,7 @@ export default function Info() {
         <section className="mt-28 grid gap-10 md:grid-cols-2 md:gap-16">
           <div className="order-2 md:order-1">
             <h2 className="caps text-sm text-mute">The thread through the work</h2>
-            <p className="display mt-6 text-[12vw] md:text-[6vw]">Keep the gold at home</p>
+            <SplitText as="p" text="Keep the gold at home" stagger={25} className="display mt-6 block text-[12vw] md:text-[6vw]" />
             <div className="mt-10 space-y-5 text-lg leading-relaxed">
               <p>
                 This year&rsquo;s headlines are about Africa&rsquo;s ground: record gold sales,
