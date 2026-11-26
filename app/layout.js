@@ -3,6 +3,7 @@ import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import Cursor from "@/components/Cursor";
 import { artist } from "@/data/site";
+import OjdznCredit from "../components/OjdznCredit";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
         <SiteHeader />
         <Cursor />
         {children}
+        <OjdznCredit from="mitchellejames" />
       </body>
     </html>
   );
